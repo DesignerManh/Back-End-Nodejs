@@ -3,7 +3,8 @@ require("dotenv").config();
 const app = express();
 
 const route = require("./routes/client/index.route"); // Nhúng code ở file index.route.js
-
+//  Nhúng file tĩnh
+app.use(express.static("public"));
 
 const port = process.env.PORT;
 // Cấu hình thằng pug vào trong dự án
