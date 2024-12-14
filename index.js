@@ -1,19 +1,20 @@
 const express = require("express");
 require("dotenv").config();
 const app = express();
-
-const route = require("./routes/client/index.route"); // Nhúng code ở file index.route.js
-//  Nhúng file tĩnh
-app.use(express.static("public"));
-
 const port = process.env.PORT;
-// Cấu hình thằng pug vào trong dự án
-app.set("views", "./views");
-app.set("view engine", "pug");
 
-// Nhúng code ở file index.route.js
-route(app);
+const database = require("./config/database");
+database.connect();
+
+const routeClient = require("./routes/client/index.route");
+
+app.set("views", "./views"); // Tìm đến thư mục tên là views
+app.set("view engine", "pug"); // template engine sử dụng: pug
+
+app.use(express.static("public")); // Thiết lập thư mục chứa file tĩnh
+
+routeClient(app);
 
 app.listen(port, () => {
-  console.log(` Server is running on port ${port} `);
+  console.log(`App listening on port ${port}`);
 });
